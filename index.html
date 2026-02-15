@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>字幕生成器（图片氛围台词）</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="title">字幕生成器</div>
+      <div class="subtitle">上传图片 → 生成电影氛围台词 → 合成新图片并下载</div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <div class="cardTitle">1) 上传图片</div>
+
+        <label class="dropzone" for="fileInput">
+          <input id="fileInput" type="file" accept="image/*" />
+          <div class="dropzoneTitle">点击或拖拽上传</div>
+          <div class="dropzoneHint">支持 JPG / PNG / WEBP</div>
+        </label>
+
+        <div class="row">
+          <div class="kv">
+            <div class="k">内容判断</div>
+            <div id="contentGuess" class="v">-</div>
+          </div>
+          <div class="kv">
+            <div class="k">氛围</div>
+            <div id="moodTags" class="v">-</div>
+          </div>
+        </div>
+
+        <div class="previewBox">
+          <img id="inputPreview" alt="" />
+          <div id="inputPlaceholder" class="placeholder">等待图片…</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardTitle">2) 生成台词</div>
+
+        <div class="field">
+          <label class="label" for="styleSelect">台词风格</label>
+          <select id="styleSelect" class="control">
+            <option value="cinematic" selected>电影感（通用）</option>
+            <option value="noir">黑色电影</option>
+            <option value="youth">青春文艺</option>
+            <option value="suspense">悬疑</option>
+            <option value="sciFi">科幻</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="keywordsInput">关键词（可选，帮助更贴图）</label>
+          <input id="keywordsInput" class="control" placeholder="例如：雨夜 / 车站 / 离别 / 海边 / 霓虹" />
+        </div>
+
+        <div class="field">
+          <label class="label" for="lineText">台词（可编辑）</label>
+          <textarea id="lineText" class="control textarea" rows="4" placeholder="上传图片后点击“生成台词”"></textarea>
+        </div>
+
+        <div class="buttons">
+          <button id="genLineBtn" class="btn primary" disabled>生成台词</button>
+          <button id="genImageBtn" class="btn" disabled>生成图片</button>
+        </div>
+      </section>
+
+      <section class="card wide">
+        <div class="cardTitle">3) 合成结果</div>
+
+        <div class="controls">
+          <div class="field">
+            <label class="label" for="themeSelect">字幕样式</label>
+            <select id="themeSelect" class="control">
+              <option value="dark" selected>黑底白字</option>
+              <option value="light">白底黑字</option>
+              <option value="cinema">电影黑条</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="label" for="fontSize">字体大小</label>
+            <input id="fontSize" class="control" type="range" min="18" max="64" step="1" value="36" />
+            <div id="fontSizeValue" class="hint">36</div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="maxWidthSelect">输出宽度</label>
+            <select id="maxWidthSelect" class="control">
+              <option value="original">保持原尺寸</option>
+              <option value="1200" selected>适配 1200px</option>
+              <option value="1600">适配 1600px</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="label" for="formatSelect">导出格式</label>
+            <select id="formatSelect" class="control">
+              <option value="image/png" selected>PNG</option>
+              <option value="image/jpeg">JPEG</option>
+              <option value="image/webp">WEBP</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="label" for="quality">质量（JPEG/WEBP）</label>
+            <input id="quality" class="control" type="range" min="0.4" max="1" step="0.02" value="0.92" />
+            <div id="qualityValue" class="hint">0.92</div>
+          </div>
+        </div>
+
+        <div class="result">
+          <div class="previewBox">
+            <img id="outputPreview" alt="" />
+            <div id="outputPlaceholder" class="placeholder">等待生成…</div>
+          </div>
+          <div class="buttons right">
+            <button id="downloadBtn" class="btn primary" disabled>下载图片</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
